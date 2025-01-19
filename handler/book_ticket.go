@@ -14,12 +14,14 @@ func NewBookingService() *TicketBookingService {
 	}
 }
 
+// PurchaseTicket -  book the ticket
 func (s *TicketBookingService) PurchaseTicket(ctx context.Context, req *proto.TicketRequest) (*proto.TicketResponse, error) {
 	var (
 		selectedSeat   string
 		remainingSeats []string
 	)
 
+	// validate request fields
 	err := validatePurchaseTicketRequest(req)
 	if err != nil {
 		return nil, err
@@ -49,6 +51,7 @@ func (s *TicketBookingService) PurchaseTicket(ctx context.Context, req *proto.Ti
 	return res, nil
 }
 
+// GetReceipt - get the booking details
 func (s *TicketBookingService) GetReceipt(ctx context.Context, req *proto.GetUserTicketRequest) (*proto.TicketResponse, error) {
 	if val, ok := s.BookingUsers[req.Email]; ok {
 
@@ -68,6 +71,7 @@ func (s *TicketBookingService) GetReceipt(ctx context.Context, req *proto.GetUse
 	return nil, fmt.Errorf("no booking found for user: %s", req.Email)
 }
 
+// GetAllocationSeats - get user booking seats
 func (s *TicketBookingService) GetAllocationSeats(ctx context.Context, req *proto.GetSeatAllocationRequest) (*proto.GetSeatAllocationResponse, error) {
 	var bookingSeats []*proto.Bookingseat
 	if val, ok := s.SeatSections[req.Email]; ok {
@@ -89,6 +93,7 @@ func (s *TicketBookingService) GetAllocationSeats(ctx context.Context, req *prot
 	return nil, fmt.Errorf("the user doesn't book the ticket ")
 }
 
+// CancelBookingTicket - cancle the booking details
 func (s *TicketBookingService) CancelBookingTicket(ctx context.Context, req *proto.CancelBookingTicketRequest) (*proto.CancelBookingTicketResponse, error) {
 
 	if val, ok := s.BookingUsers[req.Email]; ok {
@@ -119,6 +124,7 @@ func (s *TicketBookingService) CancelBookingTicket(ctx context.Context, req *pro
 	return nil, fmt.Errorf("no ticket found")
 }
 
+// GetAvailableSeats - get available seats
 func (s *TicketBookingService) GetAvailableSeats(ctx context.Context, req *proto.GetAvailableSeatsRequest) (*proto.GetAvailableSeatsResponse, error) {
 
 	if val, ok := s.AvailableSeat[req.Date]; ok {
@@ -136,6 +142,7 @@ func (s *TicketBookingService) GetAvailableSeats(ctx context.Context, req *proto
 	return res, nil
 }
 
+// UpdateUserSeat - update user seats
 func (s *TicketBookingService) UpdateUserSeat(ctx context.Context, req *proto.UpdateUserSeatRequest) (*proto.UpdateUserSeatResponse, error) {
 
 	if bookingVal, ok := s.BookingUsers[req.Email]; ok {
