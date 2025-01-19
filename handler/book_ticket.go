@@ -3,7 +3,6 @@ package handler
 import (
 	"booking-server/proto"
 	"context"
-	"errors"
 	"fmt"
 )
 
@@ -20,20 +19,10 @@ func (s *TicketBookingService) PurchaseTicket(ctx context.Context, req *proto.Ti
 		selectedSeat   string
 		remainingSeats []string
 	)
-	if req.Email == "" {
-		return nil, errors.New("email-id shouldn't be empty")
-	}
-	if req.To == "" {
-		return nil, errors.New("place(to) shouldn't be empty")
-	}
-	if req.From == "" {
-		return nil, errors.New("place(from) shouldn't be empty")
-	}
-	if req.FirstName == "" {
-		return nil, errors.New("first name shouldn't be empty")
-	}
-	if req.LastName == "" {
-		return nil, errors.New("last name shouldn't be empty")
+
+	err := validatePurchaseTicketRequest(req)
+	if err != nil {
+		return nil, err
 	}
 
 	if val, ok := s.AvailableSeat[req.Date]; ok {
@@ -190,4 +179,26 @@ func (s *TicketBookingService) UpdateUserSeat(ctx context.Context, req *proto.Up
 
 	}
 	return nil, fmt.Errorf("the user doesn't book any ticket")
+}
+
+func validatePurchaseTicketRequest(req *proto.TicketRequest) error {
+	if req.Email == "" {
+		return fmt.Errorf("email-id shouldn't be empty")
+	}
+	if req.To == "" {
+		return fmt.Errorf("place(to) shouldn't be empty")
+	}
+	if req.From == "" {
+		return fmt.Errorf("place(from) shouldn't be empty")
+	}
+	if req.FirstName == "" {
+		return fmt.Errorf("first name shouldn't be empty")
+	}
+	if req.LastName == "" {
+		return fmt.Errorf("last name shouldn't be empty")
+	}
+	if req.Date == "" {
+		return fmt.Errorf("date shouldn't be empty")
+	}
+	return nil
 }

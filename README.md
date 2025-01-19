@@ -54,7 +54,7 @@ To fetch booking details for a user, run the following command:
 
 ```
 
-grpcurl -plaintext -d '{"email":"cccc@bala"}' localhost:8089 proto.TicketBookingService/GetReceipt
+grpcurl -plaintext -d '{"email":"bala@gmail.com"}' localhost:8089 proto.TicketBookingService/GetReceipt
 
 ```
 This will retrieve the booking details (such as from, to, seat, and price) for the user with the provided email.
@@ -64,7 +64,7 @@ To view the seat allocation for a user, run the following command:
 
 ```
 
-grpcurl -plaintext -d '{"email":"cccc@bala"}' localhost:8089 proto.TicketBookingService/GetAllocationSeats
+grpcurl -plaintext -d '{"email":"bala@gmail.com"}' localhost:8089 proto.TicketBookingService/GetAllocationSeats
 
 ```
 This command will return the seat allocation details for the specified user based on their email.
@@ -75,7 +75,7 @@ To cancel a booking, run the following command:
 
 ```
 
-grpcurl -plaintext -d '{"email":"cccc@bala","seatnumber":"B7","date":"2025-01-19"}' localhost:8089 proto.TicketBookingService/CancelBookingTicket
+grpcurl -plaintext -d '{"email":"bala@gmail.com","seatnumber":"B7","date":"2025-01-19"}' localhost:8089 proto.TicketBookingService/CancelBookingTicket
 
 ```
 
@@ -97,7 +97,7 @@ To update a user's seat, run the following command:
 
 ```
 
-grpcurl -plaintext -d '{"email":"cccc@bala","date":"2025-01-19","seatnumber":"A6"}' localhost:8089 proto.TicketBookingService/UpdateUserSeat
+grpcurl -plaintext -d '{"email":"bala@gmail.com","date":"2025-01-19","seatnumber":"A6"}' localhost:8089 proto.TicketBookingService/UpdateUserSeat
 
 ```
 This command allows the user to update their seat allocation to a new seat number.

@@ -21,6 +21,7 @@ message TicketResponse {
     string first_name = 7;
     string last_name = 8;
 }
+
 message GetUserTicketRequest{
     string email = 1;
 }
@@ -28,16 +29,19 @@ message GetUserTicketRequest{
 message GetSeatAllocationRequest{
     string email = 1;
 }
+
 message Bookingseat {
     string name = 1;
     string seatnumber = 2;
     string date = 3;
 }
+
 message CancelBookingTicketRequest {
     string email = 1;
     string seatnumber = 2;
     string date = 3;
 }
+
 message CancelBookingTicketResponse {
     string from = 1;
     string to = 2;
@@ -45,6 +49,7 @@ message CancelBookingTicketResponse {
     double price = 4;
     string seat = 5;
 }
+
 message GetSeatAllocationResponse{
      repeated Bookingseat bookingseats = 1;
 }
@@ -52,6 +57,7 @@ message GetSeatAllocationResponse{
 message GetAvailableSeatsRequest {
     string date = 1;
 }
+
 message GetAvailableSeatsResponse {
     repeated string seatNumbers = 1;
 }
@@ -60,6 +66,7 @@ message UpdateUserSeatRequest {
     string date = 2;
     string seatnumber = 3;
 }
+
 message UpdateUserSeatResponse {
     string from = 1;
     string to = 2;
@@ -67,6 +74,8 @@ message UpdateUserSeatResponse {
     double price = 4;
     string seat = 5;
 }
+
+
 service TicketBookingService {
 rpc PurchaseTicket (TicketRequest) returns (TicketResponse);
 rpc GetReceipt (GetUserTicketRequest) returns (TicketResponse);
